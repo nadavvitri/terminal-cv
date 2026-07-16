@@ -1,0 +1,56 @@
+# ============================================================================
+#  cv.yaml — THE SINGLE SOURCE OF TRUTH for your website content.
+#  Edit THIS file to change your CV. Then rebuild — index.html is generated
+#  from this by generate.py, so you never hand-edit HTML again.
+# ============================================================================
+
+name: Nadav Vitri
+tagline: Software Engineer — Cloud Apps @ Microsoft
+location: Tel Aviv, Israel
+email: nadav325@gmail.com
+phone: "+972-54-494-2091"
+linkedin: nadav-vitri
+
+summary: >-
+  Software Engineer with 6+ years building and scaling distributed backend
+  systems serving billions of requests/day. Strong end-to-end ownership across
+  design, implementation, rollout, and production optimization. Proven impact on
+  latency, infrastructure cost, and safe large-scale data migrations.
+
+experience:
+  - role: Software Engineer, Cloud Apps
+    company: Microsoft
+    dates: Jun 2025 – present · Tel Aviv
+    highlights:
+      - Designed and shipped a **Redis caching layer** for a high-traffic backend endpoint, cutting **p99 latency 2.3x (260ms → 110ms)** and reducing **Cosmos DB RU usage ~17%**, saving **~$60K/year**.
+      - Contributed to MongoDB-to-Cosmos DB production migration across multiple environments and tenant datasets, including validation tooling, rollout support, and production troubleshooting.
+  - role: Software Engineer, Brand & Agency Platform
+    company: Taboola
+    dates: Jan 2019 – Jun 2025 · Tel Aviv
+    highlights:
+      - Core engineer on the team owning Taboola's high-throughput campaign serving stack; collaborated directly with PMs and business stakeholders on roadmap and trade-offs.
+      - Led backend for **"Banner as Native"**, a flagship initiative that grew display traffic **3.3x** (~$30K → ~$100K/day in revenue).
+      - Built and scaled **RTB integrations and infrastructure**, enabling new partner onboarding and significant traffic growth.
+      - Owned **brand-safety and compliance integrations** (IAS, DoubleVerify), ensuring policy-compliant ad delivery at scale.
+      - Mentored junior engineers and served as the team's RTB technical reference.
+
+education:
+  - role: BSc, Computer Science
+    company: The Hebrew University of Jerusalem
+    dates: Oct 2016 – Jul 2019 · Jerusalem
+    highlights:
+      - "GPA: 87/100"
+
+skills:
+  - label: languages
+    details: Java, Python
+  - label: backend
+    details: Spring, distributed systems, API design, caching, performance optimization
+  - label: data
+    details: Cosmos DB, Redis, MySQL, Vertica, Aerospike, Cassandra
+  - label: infra
+    details: Apache Airflow, monitoring, production reliability
+  - label: strengths
+    details: End-to-end ownership, latency & cost optimization, cross-team collaboration
+
+resume_pdf: Nadav_Vitri_CV.pdf

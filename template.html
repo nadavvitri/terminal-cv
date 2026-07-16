@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--
+  template.html — the HTML skeleton with Jinja2 placeholders and loops.
+  This is NOT served directly. generate.py fills it with data from cv.yaml and
+  writes the final dist/index.html. Edit STRUCTURE here; edit CONTENT in cv.yaml.
+
+  Jinja2 basics you'll see below (double-brace = insert, brace-percent = logic):
+    - insert a value with double braces around the name
+    - loop with a for-block, closed by an endfor-block
+    - the "bold" filter turns **text** into <b>text</b>
+-->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{{ name }} — {{ tagline }}" />
+  <title>{{ name.split(' ')[0] | lower }}@cv:~$</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <canvas id="matrix" aria-hidden="true"></canvas>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <main class="terminal" role="main">
+    <header class="titlebar">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
+      <span class="titlebar-text">visitor@nadav-cv: ~</span>
+    </header>
+
+    <section class="screen">
+
+      <!-- whoami -->
+      <div class="line">
+        <span class="prompt">visitor@nadav-cv:~$</span>
+        <span class="cmd">whoami</span>
+      </div>
+      <div class="output">
+        <h1 class="name" data-typed>{{ name }}</h1>
+        <p class="tagline">{{ tagline }}</p>
+        <ul class="contacts">
+          <li><span class="key">location</span> {{ location }}</li>
+          <li><span class="key">email</span> <a href="mailto:{{ email }}">{{ email }}</a></li>
+          <li><span class="key">phone</span> <a href="tel:{{ phone | replace('-', '') | replace(' ', '') }}">{{ phone }}</a></li>
+          <li><span class="key">linkedin</span> <a href="https://www.linkedin.com/in/{{ linkedin }}" target="_blank" rel="noopener">{{ linkedin }}</a></li>
+        </ul>
+      </div>
+
+      <!-- cat summary.txt -->
+      <div class="line">
+        <span class="prompt">visitor@nadav-cv:~$</span>
+        <span class="cmd">cat summary.txt</span>
+      </div>
+      <div class="output">
+        <p>{{ summary }}</p>
+      </div>
+
+      <!-- ./experience.sh -->
+      <div class="line">
+        <span class="prompt">visitor@nadav-cv:~$</span>
+        <span class="cmd">./experience.sh</span>
+      </div>
+      <div class="output">
+        {% for job in experience %}
+        <article class="entry">
+          <div class="entry-head">
+            <span class="role">{{ job.role }}</span>
+            <span class="company">{{ job.company }}</span>
+            <span class="dates">{{ job.dates }}</span>
+          </div>
+          <ul class="bullets">
+            {% for point in job.highlights %}
+            <li>{{ point | bold }}</li>
+            {% endfor %}
+          </ul>
+        </article>
+        {% endfor %}
+      </div>
+
+      <!-- cat education.txt -->
+      <div class="line">
+        <span class="prompt">visitor@nadav-cv:~$</span>
+        <span class="cmd">cat education.txt</span>
+      </div>
+      <div class="output">
+        {% for school in education %}
+        <article class="entry">
+          <div class="entry-head">
+            <span class="role">{{ school.role }}</span>
+            <span class="company">{{ school.company }}</span>
+            <span class="dates">{{ school.dates }}</span>
+          </div>
+          <ul class="bullets">
+            {% for point in school.highlights %}
+            <li>{{ point | bold }}</li>
+            {% endfor %}
+          </ul>
+        </article>
+        {% endfor %}
+      </div>
+
+      <!-- ls skills/ -->
+      <div class="line">
+        <span class="prompt">visitor@nadav-cv:~$</span>
+        <span class="cmd">ls skills/</span>
+      </div>
+      <div class="output">
+        <dl class="skills">
+          {% for skill in skills %}
+          <div><dt>{{ skill.label }}/</dt><dd>{{ skill.details }}</dd></div>
+          {% endfor %}
+        </dl>
+      </div>
+
+      <!-- wget resume.pdf -->
+      <div class="line">
+        <span class="prompt">visitor@nadav-cv:~$</span>
+        <span class="cmd">wget resume.pdf</span>
+      </div>
+      <div class="output">
+        <a class="download" href="{{ resume_pdf }}" download>⬇ download {{ resume_pdf }}</a>
+      </div>
+
+      <!-- live prompt -->
+      <div class="line">
+        <span class="prompt">visitor@nadav-cv:~$</span>
+        <span class="cursor" aria-hidden="true">█</span>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="matrix.js"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>

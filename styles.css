@@ -1,0 +1,310 @@
+/*
+  styles.css — all the visual styling for the terminal-themed CV.
+  Read this alongside index.html. Key ideas you'll learn here:
+    - CSS custom properties (variables) for the color theme
+    - Flexbox for layout
+    - @keyframes for animations (blinking cursor, scanlines, flicker)
+    - Media queries for mobile responsiveness
+*/
+
+/* ---- 1. Theme variables ----
+   Define colors once here, reuse everywhere with var(--name).
+   Change these to re-theme the whole site (e.g. amber or cyan). */
+:root {
+  --bg: #0d1117;            /* near-black background */
+  --bg-terminal: #0a0e0a;   /* slightly greener black for the window */
+  --green: #00ff41;         /* classic matrix phosphor green */
+  --green-dim: #00b32c;     /* dimmer green for secondary text */
+  --green-faint: #0a3d16;   /* very dim green for borders */
+  --white: #d7ffe0;         /* soft near-white for readable body text */
+  --amber: #ffb000;         /* accent used sparingly (dates) */
+  --font: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
+}
+
+/* ---- 2. Reset & base ----
+   box-sizing:border-box makes width/padding math predictable. */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.6;
+  /* Center the terminal window on the page. */
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 16px;
+  overflow-x: hidden;
+}
+
+/* ---- 3. Matrix rain canvas ----
+   position:fixed + z-index:0 puts it behind the terminal (which is z-index:1). */
+#matrix {
+  position: fixed;
+  inset: 0;                 /* shorthand for top/right/bottom/left: 0 */
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.35;            /* keep it subtle so text stays readable */
+}
+
+/* ---- 4. CRT scanlines overlay ----
+   A repeating horizontal-line gradient drawn over everything, gently moving. */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;     /* clicks pass through to the page */
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.25) 3px,
+    rgba(0, 0, 0, 0.25) 4px
+  );
+  animation: scan 8s linear infinite;
+}
+
+@keyframes scan {
+  from { background-position: 0 0; }
+  to   { background-position: 0 100px; }
+}
+
+/* ---- 5. The terminal window ---- */
+.terminal {
+  position: relative;
+  z-index: 1;               /* above the matrix canvas */
+  width: 100%;
+  max-width: 820px;
+  background: rgba(10, 14, 10, 0.92);  /* semi-transparent so rain shows faintly */
+  border: 1px solid var(--green-faint);
+  border-radius: 8px;
+  box-shadow:
+    0 0 20px rgba(0, 255, 65, 0.15),   /* outer green glow */
+    0 0 60px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  animation: flicker 4s infinite;      /* subtle CRT flicker */
+}
+
+/* Barely-there brightness flicker, like an old monitor. */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  97%      { opacity: 1; }
+  98%      { opacity: 0.92; }
+  99%      { opacity: 1; }
+}
+
+/* ---- 6. Title bar with traffic-light dots ---- */
+.titlebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #05070a;
+  border-bottom: 1px solid var(--green-faint);
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot.red    { background: #ff5f56; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green  { background: #27c93f; }
+
+.titlebar-text {
+  margin-left: 8px;
+  color: var(--green-dim);
+  font-size: 13px;
+}
+
+/* ---- 7. The screen (content area) ---- */
+.screen {
+  padding: 22px 24px 30px;
+}
+
+/* A "typed command" line: prompt + command text. */
+.line {
+  margin-top: 18px;
+  word-break: break-word;
+}
+.line:first-child {
+  margin-top: 0;
+}
+
+.prompt {
+  color: var(--green);
+  font-weight: 700;
+  margin-right: 8px;
+  user-select: none;        /* so copying text doesn't grab the prompt */
+}
+
+.cmd {
+  color: var(--white);
+}
+
+/* The output block under each command. */
+.output {
+  margin: 8px 0 4px;
+  padding-left: 4px;
+  color: var(--white);
+}
+
+/* ---- 8. Header / identity ---- */
+.name {
+  color: var(--green);
+  font-size: clamp(28px, 6vw, 44px);   /* fluid size: min, preferred, max */
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 0 12px rgba(0, 255, 65, 0.6);  /* green glow */
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.tagline {
+  color: var(--green-dim);
+  margin-top: 4px;
+  font-size: 15px;
+}
+
+.contacts {
+  list-style: none;
+  margin-top: 14px;
+  display: grid;
+  gap: 4px;
+}
+.contacts .key {
+  display: inline-block;
+  width: 90px;
+  color: var(--green);
+}
+.contacts .key::after {
+  content: ':';
+}
+
+/* ---- 9. Experience / education entries ---- */
+.entry {
+  margin: 14px 0 18px;
+  border-left: 2px solid var(--green-faint);
+  padding-left: 14px;
+}
+
+.entry-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin-bottom: 8px;
+}
+.entry-head .role {
+  color: var(--green);
+  font-weight: 700;
+}
+.entry-head .company {
+  color: var(--white);
+}
+.entry-head .dates {
+  color: var(--amber);
+  font-size: 13px;
+  margin-left: auto;        /* pushes dates to the right on wide screens */
+}
+
+.bullets {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+}
+.bullets li {
+  position: relative;
+  padding-left: 18px;
+}
+/* Use a "▹" as a custom bullet, colored green. */
+.bullets li::before {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  color: var(--green);
+}
+.bullets b {
+  color: var(--green);
+  font-weight: 700;
+}
+
+/* ---- 10. Skills ---- */
+.skills {
+  display: grid;
+  gap: 8px;
+}
+.skills > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+}
+.skills dt {
+  color: var(--green);
+  min-width: 120px;
+}
+.skills dd {
+  color: var(--white);
+}
+
+/* ---- 11. Links & download button ---- */
+a {
+  color: var(--green);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--green-dim);
+}
+a:hover {
+  color: var(--white);
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.8);
+}
+
+.download {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 8px 16px;
+  border: 1px solid var(--green);
+  border-radius: 4px;
+  color: var(--green);
+  transition: all 0.15s ease;
+}
+.download:hover {
+  background: var(--green);
+  color: #000;
+  box-shadow: 0 0 16px rgba(0, 255, 65, 0.7);
+}
+
+/* ---- 12. Blinking cursor ---- */
+.cursor {
+  color: var(--green);
+  animation: blink 1s step-end infinite;   /* step-end = hard on/off, no fade */
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ---- 13. Mobile tweaks ---- */
+@media (max-width: 560px) {
+  body { padding: 12px 8px; }
+  .screen { padding: 16px 14px 24px; }
+  .contacts .key { width: 74px; }
+  .entry-head .dates { margin-left: 0; }  /* stack dates under title on phones */
+}
+
+/* Respect users who prefer no animation (accessibility). */
+@media (prefers-reduced-motion: reduce) {
+  .scanlines, .terminal, .cursor { animation: none; }
+}

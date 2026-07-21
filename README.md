@@ -8,14 +8,20 @@ Container Apps**.
 
 | File | What it is | What you learn |
 |---|---|---|
-| `index.html` | The page structure & all CV content | HTML semantics, no framework |
+| `cv.yaml` | **Single source of truth** (RenderCV format) — content for both site & PDF | data-driven docs |
+| `generate.py` | Reads `cv.yaml` + `template.html` → writes `dist/` (the website) | Python, Jinja2, YAML |
+| `template.html` | HTML skeleton with Jinja2 placeholders (filled by `generate.py`) | templating, HTML semantics |
 | `styles.css` | The terminal theme, layout, animations | CSS variables, flexbox, `@keyframes`, media queries |
 | `matrix.js` | The falling "digital rain" background | `<canvas>` 2D drawing, animation loop |
 | `main.js` | The typing animation on the name | DOM + `setInterval` |
+| `requirements.txt` | Python deps: RenderCV (PDF) + Jinja2/PyYAML (site) | pip, pinned deps |
 | `Dockerfile` | Recipe to build the container image | Docker images, layers, `FROM/COPY/CMD` |
 | `nginx.conf` | Web-server config inside the container | how static files are served in prod |
 | `.dockerignore` | Files to keep out of the image | build hygiene |
-| `Nadav_Vitri_CV.pdf` | Downloadable resume | — |
+
+> The resume PDF (`Nadav_Vitri_CV.pdf`) is **generated** during the build by
+> `rendercv render cv.yaml`, so it isn't committed. Edit only `cv.yaml`; both the
+> website and the PDF are regenerated from it.
 
 ## The mental model
 

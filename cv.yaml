@@ -1,56 +1,204 @@
-# ============================================================================
-#  cv.yaml — THE SINGLE SOURCE OF TRUTH for your website content.
-#  Edit THIS file to change your CV. Then rebuild — index.html is generated
-#  from this by generate.py, so you never hand-edit HTML again.
-# ============================================================================
-
-name: Nadav Vitri
-tagline: Software Engineer — Cloud Apps @ Microsoft
-location: Tel Aviv, Israel
-email: nadav325@gmail.com
-phone: "+972-54-494-2091"
-linkedin: nadav-vitri
-
-summary: >-
-  Software Engineer with 6+ years building and scaling distributed backend
-  systems serving billions of requests/day. Strong end-to-end ownership across
-  design, implementation, rollout, and production optimization. Proven impact on
-  latency, infrastructure cost, and safe large-scale data migrations.
-
-experience:
-  - role: Software Engineer, Cloud Apps
-    company: Microsoft
-    dates: Jun 2025 – present · Tel Aviv
-    highlights:
-      - Designed and shipped a **Redis caching layer** for a high-traffic backend endpoint, cutting **p99 latency 2.3x (260ms → 110ms)** and reducing **Cosmos DB RU usage ~17%**, saving **~$60K/year**.
-      - Contributed to MongoDB-to-Cosmos DB production migration across multiple environments and tenant datasets, including validation tooling, rollout support, and production troubleshooting.
-  - role: Software Engineer, Brand & Agency Platform
-    company: Taboola
-    dates: Jan 2019 – Jun 2025 · Tel Aviv
-    highlights:
-      - Core engineer on the team owning Taboola's high-throughput campaign serving stack; collaborated directly with PMs and business stakeholders on roadmap and trade-offs.
-      - Led backend for **"Banner as Native"**, a flagship initiative that grew display traffic **3.3x** (~$30K → ~$100K/day in revenue).
-      - Built and scaled **RTB integrations and infrastructure**, enabling new partner onboarding and significant traffic growth.
-      - Owned **brand-safety and compliance integrations** (IAS, DoubleVerify), ensuring policy-compliant ad delivery at scale.
-      - Mentored junior engineers and served as the team's RTB technical reference.
-
-education:
-  - role: BSc, Computer Science
-    company: The Hebrew University of Jerusalem
-    dates: Oct 2016 – Jul 2019 · Jerusalem
-    highlights:
-      - "GPA: 87/100"
-
-skills:
-  - label: languages
-    details: Java, Python
-  - label: backend
-    details: Spring, distributed systems, API design, caching, performance optimization
-  - label: data
-    details: Cosmos DB, Redis, MySQL, Vertica, Aerospike, Cassandra
-  - label: infra
-    details: Apache Airflow, monitoring, production reliability
-  - label: strengths
-    details: End-to-end ownership, latency & cost optimization, cross-team collaboration
-
-resume_pdf: Nadav_Vitri_CV.pdf
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.3/schema.json
+cv:
+  name: Nadav Vitri
+  location: Tel Aviv, Israel
+  email: nadav325@gmail.com
+  phone: +972-54-494-2091
+  website:
+  social_networks:
+    - network: LinkedIn
+      username: nadav-vitri
+  sections:
+    summary:
+      - Software Engineer with 6+ years building and scaling distributed backend systems serving billions of requests/day. Strong end-to-end ownership across design, implementation, rollout, and production optimization. Proven impact on latency, infrastructure cost, and safe large-scale data migrations.
+    experience:
+      - company: Microsoft
+        position: Software Engineer, Cloud Apps
+        start_date: 2025-06
+        end_date: present
+        location: Tel Aviv, Israel
+        highlights:
+          - Designed and shipped a **Redis caching layer** for a high-traffic backend endpoint, cutting **p99 latency 2.3x (260ms -> 110ms)** and reducing **Cosmos DB RU usage by ~17%**, saving **~$60K/year** in infrastructure costs.
+          - Contributed to MongoDB-to-Cosmos DB production migration efforts across multiple environments and tenant datasets, including validation tooling, rollout support, and production troubleshooting.
+      - company: Taboola
+        position: Software Engineer, Brand & Agency Platform
+        start_date: 2019-01
+        end_date: 2025-06
+        location: Tel Aviv, Israel
+        highlights:
+          - Core engineer on the team owning Taboola's high-throughput campaign serving stack; collaborated directly with PMs and business stakeholders on roadmap and trade-offs.
+          - Led backend for **"Banner as Native"**, a flagship initiative that grew display traffic **3.3x** (from ~$30K to ~$100K/day in revenue).
+          - Built and scaled **RTB integrations and infrastructure**, enabling new partner onboarding and significant traffic growth.
+          - Owned **brand-safety and compliance integrations** (IAS, DoubleVerify), ensuring policy-compliant ad delivery at scale.
+          - Mentored junior engineers and served as the team's RTB technical reference.
+    education:
+      - institution: The Hebrew University of Jerusalem
+        area: Computer Science
+        degree: BSc
+        start_date: 2016-10
+        end_date: 2019-07
+        location: Jerusalem, Israel
+        highlights:
+          - 'GPA: 87/100'
+    skills:
+      - label: Languages
+        details: Java, Python
+      - label: Backend
+        details: Spring, distributed systems, API design, caching, performance optimization
+      - label: Data & Storage
+        details: Cosmos DB, Redis, MySQL, Vertica, Aerospike, Cassandra
+      - label: Infra & Workflow
+        details: Apache Airflow, monitoring, production reliability
+      - label: Strengths
+        details: End-to-end ownership, latency & cost optimization, cross-team collaboration
+  sort_entries: none
+design:
+  theme: classic
+  page:
+    size: us-letter
+    top_margin: 2cm
+    bottom_margin: 2cm
+    left_margin: 2cm
+    right_margin: 2cm
+    show_page_numbering: false
+    show_last_updated_date: true
+  colors:
+    text: rgb(0, 0, 0)
+    name: rgb(0, 79, 144)
+    connections: rgb(0, 79, 144)
+    section_titles: rgb(0, 79, 144)
+    links: rgb(0, 79, 144)
+    last_updated_date_and_page_numbering: rgb(128, 128, 128)
+  text:
+    font_family: Source Sans 3
+    font_size: 10pt
+    leading: 0.6em
+    alignment: justified
+    date_and_location_column_alignment: right
+  links:
+    underline: false
+    use_external_link_icon: true
+  header:
+    name_font_family: Source Sans 3
+    name_font_size: 30pt
+    name_bold: true
+    small_caps_for_name: false
+    photo_width: 3.5cm
+    vertical_space_between_name_and_connections: 0.7cm
+    vertical_space_between_connections_and_first_section: 0.7cm
+    horizontal_space_between_connections: 0.5cm
+    connections_font_family: Source Sans 3
+    separator_between_connections: ''
+    use_icons_for_connections: false
+    use_urls_as_placeholders_for_connections: false
+    make_connections_links: true
+    alignment: center
+  section_titles:
+    type: with-partial-line
+    font_family: Source Sans 3
+    font_size: 1.4em
+    bold: true
+    small_caps: false
+    line_thickness: 0.5pt
+    vertical_space_above: 0.5cm
+    vertical_space_below: 0.3cm
+  entries:
+    date_and_location_width: 4.15cm
+    left_and_right_margin: 0.2cm
+    horizontal_space_between_columns: 0.1cm
+    vertical_space_between_entries: 1.2em
+    allow_page_break_in_sections: true
+    allow_page_break_in_entries: true
+    short_second_row: false
+    show_time_spans_in: []
+  highlights:
+    bullet: "-"
+    nested_bullet: "-"
+    top_margin: 0.25cm
+    left_margin: 0.4cm
+    vertical_space_between_highlights: 0.25cm
+    horizontal_space_between_bullet_and_highlight: 0.5em
+    summary_left_margin: 0cm
+  entry_types:
+    one_line_entry:
+      template: '**LABEL:** DETAILS'
+    education_entry:
+      main_column_first_row_template: '**INSTITUTION**, AREA'
+      degree_column_template: '**DEGREE**'
+      degree_column_width: 1cm
+      main_column_second_row_template: |-
+        SUMMARY
+        HIGHLIGHTS
+      date_and_location_column_template: |-
+        LOCATION
+        DATE
+    normal_entry:
+      main_column_first_row_template: '**NAME**'
+      main_column_second_row_template: |-
+        SUMMARY
+        HIGHLIGHTS
+      date_and_location_column_template: |-
+        LOCATION
+        DATE
+    experience_entry:
+      main_column_first_row_template: '**COMPANY**, POSITION'
+      main_column_second_row_template: |-
+        SUMMARY
+        HIGHLIGHTS
+      date_and_location_column_template: |-
+        LOCATION
+        DATE
+    publication_entry:
+      main_column_first_row_template: '**TITLE**'
+      main_column_second_row_template: |-
+        AUTHORS
+        URL (JOURNAL)
+      main_column_second_row_without_journal_template: |-
+        AUTHORS
+        URL
+      main_column_second_row_without_url_template: |-
+        AUTHORS
+        JOURNAL
+      date_and_location_column_template: DATE
+locale:
+  language: en
+  phone_number_format: international
+  page_numbering_template: NAME - Page PAGE_NUMBER of TOTAL_PAGES
+  last_updated_date_template: Last updated in TODAY
+  date_template: MONTH_ABBREVIATION YEAR
+  month: month
+  months: months
+  year: year
+  years: years
+  present: present
+  to: –
+  abbreviations_for_months:
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - June
+    - July
+    - Aug
+    - Sept
+    - Oct
+    - Nov
+    - Dec
+  full_names_of_months:
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+rendercv_settings:
+  date: '2026-05-03'
+  bold_keywords: []
+  sort_entries: none
